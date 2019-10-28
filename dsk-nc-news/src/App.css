@@ -20,3 +20,20 @@
 .App-link {
   color: #09d3ac;
 }
+
+nav a {
+  margin: 10px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+#articles-container {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+.article-card {
+  border: 1px black solid;
+}
