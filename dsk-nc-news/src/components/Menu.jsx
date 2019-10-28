@@ -4,7 +4,7 @@ import { Link } from '@reach/router';
 const Menu = () => {
   return (
     <nav>
-      <Link to='/'>Articles</Link>
+      <Link to='/articles'>Articles</Link>
       <Link to='/users'>Users</Link>
     </nav>
   );

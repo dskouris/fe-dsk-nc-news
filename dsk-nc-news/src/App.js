@@ -1,7 +1,8 @@
 import React from 'react';
-import Header from './Components/Header';
-import Users from './Components/Users';
-import ArticlesList from './Components/ArticlesList';
+import Header from './components/Header';
+import Users from './components/Users';
+import ArticlesList from './components/ArticlesList';
+import SingleArticle from './components/SingleArticle';
 import { Router } from '@reach/router';
 
 import './App.css';
@@ -11,7 +12,8 @@ function App() {
     <div className='App'>
       <Header />
       <Router>
-        <ArticlesList path='/' />
+        <ArticlesList path='/articles' />
+        <SingleArticle path='/articles/:article_id' />
         <Users path='/users' />
       </Router>
     </div>
