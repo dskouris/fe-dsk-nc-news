@@ -25,14 +25,12 @@ class ArticlesList extends Component {
       <div id='articles-list'>
         <h2>Articles</h2>
         <p>
-          Topic: {this.props.topic ? utils.capitalise(this.props.topic) : 'All'}
+          Viewing articles about:{' '}
+          {this.props.topic ? utils.capitalise(this.props.topic) : 'Everything'}
         </p>
         <label>
           Sort by:
-          <select onChange={this.handleChange} defaultValue=''>
-            <option value='' disabled>
-              Select your option
-            </option>
+          <select onChange={this.handleChange} defaultValue='created_at'>
             <option value='created_at'>Most recent</option>
             <option value='comment_count'>Comment count</option>
             <option value='votes'>Votes</option>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CommentCard from './CommentCard';
 import * as api from '../utils/api';
+import Popup from 'reactjs-popup';
 
 class CommentsList extends Component {
   state = {
@@ -84,6 +85,30 @@ class CommentsList extends Component {
     return (
       <>
         <h2>Comments</h2>
+        <Popup
+          trigger={<button> Add comment</button>}
+          position='right center'
+          modal
+        >
+          <>
+            <h3>Add comment</h3>
+            <form>
+              <p>
+                <label>
+                  Username:
+                  <input type='text' id='username' />
+                </label>
+              </p>
+              <p>
+                <label>
+                  Comment:
+                  <textarea type='text' id='comment-body' />
+                </label>
+              </p>
+              <button type='submit'>Post comment</button>
+            </form>
+          </>
+        </Popup>
         <ul>
           {this.state.comments.map(comment => {
             return <CommentCard comment={comment} key={comment.comment_id} />;

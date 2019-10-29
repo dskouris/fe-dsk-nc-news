@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import * as api from '../utils/api';
-import Topics from './Topics';
 import CommentsList from './CommentsList';
 
 class SingleArticle extends Component {
-  state = { article: {} };
+  state = { article: {}, showComments: false };
+
+  toggleComments = () => {
+    this.setState(currentState => {
+      return { ...currentState, showComments: !currentState.showComments };
+    });
+  };
   render() {
     return (
-      <div className='articles-container'>
-        <Topics />
-        <div>
-          <h1>{this.state.article.title}</h1>
-          <p>{this.state.article.body}</p>
+      <>
+        <h1>{this.state.article.title}</h1>
+        <p>{this.state.article.body}</p>
+        <button onClick={this.toggleComments}>
+          {this.state.showComments ? 'Hide comments' : 'Show comments'}
+        </button>
+        {this.state.showComments && (
           <CommentsList article_id={this.props.article_id} />
-        </div>
-      </div>
+        )}
+      </>
     );
   }
   componentDidMount() {
