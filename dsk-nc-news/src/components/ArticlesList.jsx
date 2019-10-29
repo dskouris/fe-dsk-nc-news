@@ -2,25 +2,40 @@ import React, { Component } from 'react';
 import ArticleCard from './ArticleCard';
 import Loading from './Loading';
 import * as api from '../utils/api';
+import * as utils from '../utils/utils';
 
 class ArticlesList extends Component {
   _isMounted = false;
 
   state = {
     articles: [],
+    sort: null,
     isLoading: true
+  };
+
+  handleChange = event => {
+    const sort = event.target.value;
+    this.setState(currentState => {
+      return { ...currentState, sort };
+    });
   };
 
   render() {
     return (
       <div id='articles-list'>
         <h2>Articles</h2>
+        <p>
+          Topic: {this.props.topic ? utils.capitalise(this.props.topic) : 'All'}
+        </p>
         <label>
           Sort by:
-          <select>
-            <option>Date created</option>
-            <option>Comment count</option>
-            <option>Votes</option>
+          <select onChange={this.handleChange} defaultValue=''>
+            <option value='' disabled>
+              Select your option
+            </option>
+            <option value='created_at'>Most recent</option>
+            <option value='comment_count'>Comment count</option>
+            <option value='votes'>Votes</option>
           </select>
         </label>
         {this.state.isLoading ? (
@@ -38,17 +53,19 @@ class ArticlesList extends Component {
   componentDidMount() {
     this._isMounted = true;
     const { topic } = this.props;
-    api.getArticles(topic).then(articles => {
+    const { sort } = this.state;
+    api.getArticles(topic, sort).then(articles => {
       if (this._isMounted) {
         this.setState({ articles, isLoading: false });
       }
     });
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     this._isMounted = true;
     const { topic } = this.props;
-    if (topic !== prevProps.topic) {
-      api.getArticles(topic).then(articles => {
+    const { sort } = this.state;
+    if (topic !== prevProps.topic || sort !== prevState.sort) {
+      api.getArticles(topic, sort).then(articles => {
         if (this._isMounted) {
           this.setState({ articles, isLoading: false });
         }

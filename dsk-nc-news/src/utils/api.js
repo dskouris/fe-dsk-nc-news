@@ -13,9 +13,9 @@ export const getTopics = () => {
     .catch(console.log);
 };
 
-export const getArticles = (topic = '') => {
+export const getArticles = (topic, sort_by) => {
   return request
-    .get(`/articles?topic=${topic}`)
+    .get('/articles', { params: { topic, sort_by } })
     .then(({ data }) => {
       return data.articles;
     })

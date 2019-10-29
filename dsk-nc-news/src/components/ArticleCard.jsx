@@ -8,6 +8,7 @@ const ArticleCard = ({ article }) => {
         <h3>{article.title}</h3>
       </Link>
       <p>By {article.author}</p>
+      <p>Created at: {article.created_at}</p>
       <p>Topic: {article.topic}</p>
       <p>Comments: {article.comment_count} </p>
       <p>Votes: {article.votes}</p>

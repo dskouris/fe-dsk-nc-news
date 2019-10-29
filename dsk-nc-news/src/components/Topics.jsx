@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import * as api from '../utils/api';
+import * as utils from '../utils/utils';
 
 class Topics extends Component {
   state = {
@@ -16,11 +17,7 @@ class Topics extends Component {
             <Link to='/'>All</Link>
           </li>
           {this.state.topics.map(topic => {
-            const capitalise = str => {
-              let firstLetter = str[0].toUpperCase();
-              return firstLetter + str.slice(1);
-            };
-            const topicName = capitalise(topic.slug);
+            const topicName = utils.capitalise(topic.slug);
             return (
               <li key={topic.slug}>
                 <Link to={`/topics/${topic.slug}`} key={topic.slug}>
