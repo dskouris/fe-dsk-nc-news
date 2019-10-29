@@ -29,12 +29,17 @@ ul {
   list-style-type: none;
 }
 
-#articles-container {
+.articles-container {
   display: grid;
   grid-template-columns: 1fr 5fr;
 }
 
 .article-card {
-  border: 1px black solid;
+  background-color: #ffa2774f;
+  margin: 5px;
+}
+
+.comment-card {
+  background-color: #ffe6776c;
   margin: 5px;
 }

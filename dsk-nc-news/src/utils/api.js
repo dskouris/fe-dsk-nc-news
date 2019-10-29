@@ -13,9 +13,9 @@ export const getTopics = () => {
     .catch(console.log);
 };
 
-export const getArticles = () => {
+export const getArticles = (topic = '') => {
   return request
-    .get('/articles')
+    .get(`/articles?topic=${topic}`)
     .then(({ data }) => {
       return data.articles;
     })
@@ -27,6 +27,15 @@ export const getSingleArticle = article_id => {
     .get(`/articles/${article_id}`)
     .then(({ data }) => {
       return data.article;
+    })
+    .catch(console.log);
+};
+
+export const getComments = article_id => {
+  return request
+    .get(`/articles/${article_id}/comments`)
+    .then(({ data }) => {
+      return data.comments;
     })
     .catch(console.log);
 };

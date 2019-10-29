@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
 import Users from './components/Users';
-import ArticlesList from './components/ArticlesList';
+import Articles from './components/Articles';
 import SingleArticle from './components/SingleArticle';
 import { Router } from '@reach/router';
 
@@ -12,7 +12,9 @@ function App() {
     <div className='App'>
       <Header />
       <Router>
-        <ArticlesList path='/articles' />
+        <Articles path='/' />
+        <Articles path='/articles' />
+        <Articles path='topics/:topic' />
         <SingleArticle path='/articles/:article_id' />
         <Users path='/users' />
       </Router>
