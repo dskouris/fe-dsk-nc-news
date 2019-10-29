@@ -15,6 +15,14 @@ class ArticlesList extends Component {
     return (
       <div id='articles-list'>
         <h2>Articles</h2>
+        <label>
+          Sort by:
+          <select>
+            <option>Date created</option>
+            <option>Comment count</option>
+            <option>Votes</option>
+          </select>
+        </label>
         {this.state.isLoading ? (
           <Loading />
         ) : (
@@ -36,14 +44,16 @@ class ArticlesList extends Component {
       }
     });
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this._isMounted = true;
     const { topic } = this.props;
-    api.getArticles(topic).then(articles => {
-      if (this._isMounted) {
-        this.setState({ articles, isLoading: false });
-      }
-    });
+    if (topic !== prevProps.topic) {
+      api.getArticles(topic).then(articles => {
+        if (this._isMounted) {
+          this.setState({ articles, isLoading: false });
+        }
+      });
+    }
   }
   componentWillUnmount() {
     this._isMounted = false;

@@ -16,10 +16,15 @@ class Topics extends Component {
             <Link to='/'>All</Link>
           </li>
           {this.state.topics.map(topic => {
+            const capitalise = str => {
+              let firstLetter = str[0].toUpperCase();
+              return firstLetter + str.slice(1);
+            };
+            const topicName = capitalise(topic.slug);
             return (
               <li key={topic.slug}>
                 <Link to={`/topics/${topic.slug}`} key={topic.slug}>
-                  {topic.slug}
+                  {topicName}
                 </Link>
               </li>
             );
