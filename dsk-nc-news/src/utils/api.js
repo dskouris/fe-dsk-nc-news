@@ -5,37 +5,35 @@ const request = axios.create({
 });
 
 export const getTopics = () => {
-  return request
-    .get('/topics')
-    .then(({ data }) => {
-      return data.topics;
-    })
-    .catch(console.log);
+  return request.get('/topics').then(({ data }) => {
+    return data.topics;
+  });
 };
 
-export const getArticles = (topic, sort_by) => {
+export const getArticles = (topic, sort_by, order) => {
   return request
-    .get('/articles', { params: { topic, sort_by } })
+    .get('/articles', { params: { topic, sort_by, order } })
     .then(({ data }) => {
       return data.articles;
-    })
-    .catch(console.log);
+    });
 };
 
 export const getSingleArticle = article_id => {
-  return request
-    .get(`/articles/${article_id}`)
-    .then(({ data }) => {
-      return data.article;
-    })
-    .catch(console.log);
+  return request.get(`/articles/${article_id}`).then(({ data }) => {
+    return data.article;
+  });
 };
 
 export const getComments = article_id => {
+  return request.get(`/articles/${article_id}/comments`).then(({ data }) => {
+    return data.comments;
+  });
+};
+
+export const postComment = (article_id, commentObj) => {
   return request
-    .get(`/articles/${article_id}/comments`)
+    .post(`/articles/${article_id}/comments`, commentObj)
     .then(({ data }) => {
-      return data.comments;
-    })
-    .catch(console.log);
+      return data.comment;
+    });
 };

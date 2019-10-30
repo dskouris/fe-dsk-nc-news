@@ -32,9 +32,12 @@ class Topics extends Component {
   }
 
   componentDidMount() {
-    api.getTopics().then(topics => {
-      this.setState({ topics });
-    });
+    api
+      .getTopics()
+      .then(topics => {
+        this.setState({ topics });
+      })
+      .catch(console.log);
   }
 }
 

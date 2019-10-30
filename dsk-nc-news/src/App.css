@@ -40,6 +40,14 @@ ul {
 }
 
 .comment-card {
+  display: block;
+  margin: 10px auto;
+  text-align: left;
   background-color: #ffe677a8;
-  margin: 5px;
+  padding: 10px 30px;
+  width: 500px;
+}
+
+select {
+  margin: 10px;
 }

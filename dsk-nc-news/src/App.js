@@ -18,7 +18,7 @@ function App() {
         <Articles path='topics/:topic' />
         <SingleArticle path='/articles/:article_id' />
         <Users path='/users' />
-        <ErrorPage default />
+        <ErrorPage err={{ status: 404, msg: 'path not found' }} default />
       </Router>
     </div>
   );

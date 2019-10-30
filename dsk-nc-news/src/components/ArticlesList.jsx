@@ -10,13 +10,17 @@ class ArticlesList extends Component {
   state = {
     articles: [],
     sort: null,
+    order: null,
     isLoading: true
   };
 
   handleChange = event => {
-    const sort = event.target.value;
+    let sortOptions = event.target.value.split('-');
+
+    const sort = sortOptions[0];
+    const order = sortOptions[1];
     this.setState(currentState => {
-      return { ...currentState, sort };
+      return { ...currentState, sort, order };
     });
   };
 
@@ -30,10 +34,17 @@ class ArticlesList extends Component {
         </p>
         <label>
           Sort by:
-          <select onChange={this.handleChange} defaultValue='created_at'>
-            <option value='created_at'>Most recent</option>
-            <option value='comment_count'>Comment count</option>
-            <option value='votes'>Votes</option>
+          <select
+            onChange={this.handleChange}
+            defaultValue='created_at-desc'
+            id='select-sort'
+          >
+            <option value='created_at-desc'>Newest</option>
+            <option value='created_at-asc'>Oldest</option>
+            <option value='comment_count-desc'>Most comments</option>
+            <option value='comment_count-asc'>Least comments</option>
+            <option value='votes-desc'>Most votes</option>
+            <option value='votes-asc'>Least votes</option>
           </select>
         </label>
         {this.state.isLoading ? (
@@ -51,23 +62,33 @@ class ArticlesList extends Component {
   componentDidMount() {
     this._isMounted = true;
     const { topic } = this.props;
-    const { sort } = this.state;
-    api.getArticles(topic, sort).then(articles => {
-      if (this._isMounted) {
-        this.setState({ articles, isLoading: false });
-      }
-    });
+    const { sort, order } = this.state;
+    api
+      .getArticles(topic, sort, order)
+      .then(articles => {
+        if (this._isMounted) {
+          this.setState({ articles, isLoading: false });
+        }
+      })
+      .catch(console.log);
   }
   componentDidUpdate(prevProps, prevState) {
     this._isMounted = true;
     const { topic } = this.props;
-    const { sort } = this.state;
-    if (topic !== prevProps.topic || sort !== prevState.sort) {
-      api.getArticles(topic, sort).then(articles => {
-        if (this._isMounted) {
-          this.setState({ articles, isLoading: false });
-        }
-      });
+    const { sort, order } = this.state;
+    if (
+      topic !== prevProps.topic ||
+      sort !== prevState.sort ||
+      order !== prevState.order
+    ) {
+      api
+        .getArticles(topic, sort, order)
+        .then(articles => {
+          if (this._isMounted) {
+            this.setState({ articles, isLoading: false });
+          }
+        })
+        .catch(console.log);
     }
   }
   componentWillUnmount() {
