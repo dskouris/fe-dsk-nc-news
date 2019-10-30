@@ -12,7 +12,6 @@ class CommentsList extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
     api
       .postComment(this.props.article_id, this.state.newComment)
       .then(newComment =>
@@ -36,7 +35,14 @@ class CommentsList extends Component {
   };
 
   handleDelete = comment_id => {
-    console.log('delete comment with id:', comment_id);
+    api.deleteComment(comment_id).then(
+      this.setState(currentState => {
+        let newCommentList = currentState.comments.filter(
+          comment => comment.comment_id !== comment_id
+        );
+        return { ...currentState, comments: newCommentList };
+      })
+    );
   };
 
   handleCloseModal = () => {
