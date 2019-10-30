@@ -41,3 +41,7 @@ export const postComment = (article_id, commentObj) => {
 export const deleteComment = comment_id => {
   return request.delete(`/comments/${comment_id}`);
 };
+
+export const updateVotes = (comment_id, votes) => {
+  return request.patch(`/comments/${comment_id}`, { inc_votes: votes });
+};
