@@ -42,6 +42,11 @@ export const deleteComment = comment_id => {
   return request.delete(`/comments/${comment_id}`);
 };
 
-export const updateVotes = (comment_id, votes) => {
+export const updateArticleVotes = (article_id, votes) => {
+  console.log(article_id);
+  return request.patch(`/articles/${article_id}`, { inc_votes: votes });
+};
+
+export const updateCommentVotes = (comment_id, votes) => {
   return request.patch(`/comments/${comment_id}`, { inc_votes: votes });
 };

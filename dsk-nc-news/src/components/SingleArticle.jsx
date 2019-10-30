@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as api from '../utils/api';
 import CommentsList from './CommentsList';
 import ErrorPage from './ErrorPage';
+import Voter from './Voter';
 
 class SingleArticle extends Component {
   state = { article: {}, showComments: false, err: null };
@@ -19,6 +20,10 @@ class SingleArticle extends Component {
           <ErrorPage err={this.state.err} />
         ) : (
           <>
+            <Voter
+              article_id={this.props.article_id}
+              currentVotes={this.state.article.votes}
+            />
             <p>{this.state.article.body}</p>
             <button onClick={this.toggleComments}>
               {this.state.showComments ? 'Hide comments' : 'Show comments'}

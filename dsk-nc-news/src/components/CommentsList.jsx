@@ -14,7 +14,9 @@ class CommentsList extends Component {
     event.preventDefault();
     api
       .postComment(this.props.article_id, this.state.newComment)
-      .then(newComment =>
+      .then(newComment => {
+        // console.log(newComment, 'comentslist');
+
         this.setState(currentState => {
           let updatedComments = [newComment, ...currentState.comments];
 
@@ -23,8 +25,8 @@ class CommentsList extends Component {
             comments: updatedComments,
             postedComment: true
           };
-        })
-      )
+        });
+      })
       .catch(console.dir);
   };
 

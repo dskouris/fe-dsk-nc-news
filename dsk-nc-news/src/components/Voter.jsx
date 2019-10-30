@@ -4,15 +4,25 @@ import * as api from '../utils/api';
 class Voter extends Component {
   state = { additionalVotes: 0 };
   vote = event => {
-    const { comment_id } = this.props;
+    console.log(this.props);
+    const { article_id, comment_id } = this.props;
     let { additionalVotes } = this.state;
     if (additionalVotes === 0) {
-      this.setState({
-        additionalVotes: event.target.id === 'upvote' ? 1 : -1
-      });
-      api
-        .updateVotes(comment_id, event.target.id === 'upvote' ? 1 : -1)
-        .catch(console.log);
+      if (article_id) {
+        this.setState({
+          additionalVotes: event.target.id === 'upvote' ? 1 : -1
+        });
+        api
+          .updateArticleVotes(article_id, event.target.id === 'upvote' ? 1 : -1)
+          .catch(console.log);
+      } else {
+        this.setState({
+          additionalVotes: event.target.id === 'upvote' ? 1 : -1
+        });
+        api
+          .updateCommentVotes(comment_id, event.target.id === 'upvote' ? 1 : -1)
+          .catch(console.log);
+      }
     }
   };
 
