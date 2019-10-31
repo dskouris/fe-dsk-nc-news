@@ -13,7 +13,7 @@ const Header = () => {
           />
         </Link>
         <Link to='/'>
-          <h1>News </h1>
+          <h1>[ ...News ] </h1>
         </Link>
         <p>Logged in as: jessjelly</p>
       </header>

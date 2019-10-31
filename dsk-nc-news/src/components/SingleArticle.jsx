@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../utils/api';
+import * as utils from '../utils/utils';
 import CommentsList from './CommentsList';
 import ErrorPage from './ErrorPage';
 import Voter from './Voter';
@@ -27,6 +28,8 @@ class SingleArticle extends Component {
             <Loading />
           ) : (
             <>
+              <p>Written by: {this.state.article.author}</p>
+              <p>{utils.formatTimestamp(this.state.article.created_at)}</p>
               <p className='article-text'>{this.state.article.body}</p>
               <hr />
               <Voter

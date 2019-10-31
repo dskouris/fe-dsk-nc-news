@@ -3,6 +3,7 @@ import ArticleCard from './ArticleCard';
 import Loading from './Loading';
 import * as api from '../utils/api';
 import * as utils from '../utils/utils';
+import ErrorPage from './ErrorPage';
 
 class ArticlesList extends Component {
   _isMounted = false;
@@ -11,7 +12,8 @@ class ArticlesList extends Component {
     articles: [],
     sort: null,
     order: null,
-    isLoading: true
+    isLoading: true,
+    err: null
   };
 
   handleChange = event => {
@@ -27,34 +29,43 @@ class ArticlesList extends Component {
   render() {
     return (
       <div id='articles-list' className='scrollable'>
-        {/* <h2>Articles</h2> */}
-        <p>
-          Viewing articles about:{' '}
-          {this.props.topic ? utils.capitalise(this.props.topic) : 'Everything'}
-        </p>
-        <label>
-          Sort by:
-          <select
-            onChange={this.handleChange}
-            defaultValue='created_at-desc'
-            id='select-sort'
-          >
-            <option value='created_at-desc'>Newest</option>
-            <option value='created_at-asc'>Oldest</option>
-            <option value='comment_count-desc'>Most comments</option>
-            <option value='comment_count-asc'>Least comments</option>
-            <option value='votes-desc'>Most votes</option>
-            <option value='votes-asc'>Least votes</option>
-          </select>
-        </label>
-        {this.state.isLoading ? (
-          <Loading />
+        {this.state.err ? (
+          <ErrorPage err={this.state.err} />
         ) : (
-          <ul>
-            {this.state.articles.map(article => {
-              return <ArticleCard article={article} key={article.article_id} />;
-            })}
-          </ul>
+          <>
+            <p>
+              Viewing articles about:{' '}
+              {this.props.topic
+                ? utils.capitalise(this.props.topic)
+                : 'Everything'}
+            </p>
+            <label>
+              Sort by:
+              <select
+                onChange={this.handleChange}
+                defaultValue='created_at-desc'
+                id='select-sort'
+              >
+                <option value='created_at-desc'>Newest</option>
+                <option value='created_at-asc'>Oldest</option>
+                <option value='comment_count-desc'>Most comments</option>
+                <option value='comment_count-asc'>Least comments</option>
+                <option value='votes-desc'>Most votes</option>
+                <option value='votes-asc'>Least votes</option>
+              </select>
+            </label>
+            {this.state.isLoading ? (
+              <Loading />
+            ) : (
+              <ul>
+                {this.state.articles.map(article => {
+                  return (
+                    <ArticleCard article={article} key={article.article_id} />
+                  );
+                })}
+              </ul>
+            )}
+          </>
         )}
       </div>
     );
@@ -67,10 +78,18 @@ class ArticlesList extends Component {
       .getArticles(topic, sort, order)
       .then(articles => {
         if (this._isMounted) {
-          this.setState({ articles, isLoading: false });
+          this.setState({ articles, err: null, isLoading: false });
         }
       })
-      .catch(console.log);
+      .catch(err => {
+        let errObj = {
+          status: err.response.status,
+          msg: err.response.data.msg
+        };
+        this.setState(currentState => {
+          return { ...currentState, err: errObj };
+        });
+      });
   }
   componentDidUpdate(prevProps, prevState) {
     this._isMounted = true;
@@ -85,10 +104,18 @@ class ArticlesList extends Component {
         .getArticles(topic, sort, order)
         .then(articles => {
           if (this._isMounted) {
-            this.setState({ articles, isLoading: false });
+            this.setState({ articles, err: null, isLoading: false });
           }
         })
-        .catch(console.log);
+        .catch(err => {
+          let errObj = {
+            status: err.response.status,
+            msg: err.response.data.msg
+          };
+          this.setState(currentState => {
+            return { ...currentState, err: errObj };
+          });
+        });
     }
   }
   componentWillUnmount() {
