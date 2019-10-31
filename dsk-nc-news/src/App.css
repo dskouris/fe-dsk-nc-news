@@ -21,6 +21,10 @@
   color: #09d3ac;
 }
 
+body a {
+  text-decoration: none;
+}
+
 nav a {
   margin: 10px;
 }
@@ -34,24 +38,91 @@ ul {
 .articles-container {
   display: grid;
   grid-template-columns: 1fr 5fr;
+  height: 595px;
 }
 
 .article-card {
-  background-color: #ffa2774f;
-  margin: 5px;
+  background-color: #ededed;
+  margin: 10px auto;
+  width: 70%;
+  padding: 20px;
 }
 
 .comment-card {
   display: block;
   margin: 10px auto;
   text-align: left;
-  background-color: #ffe677a8;
-  width: 500px;
+  background-color: #ededed;
+  width: 70%;
   padding: 20px;
 }
 
 select {
   margin: 10px;
+}
+
+header {
+  background-color: #202829;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  height: 50px;
+}
+
+header img {
+  width: 250px;
+  margin-top: -20px;
+}
+
+header p {
+  /* display: inline; */
+  margin: auto;
+  color: white;
+}
+
+header a {
+  display: block;
+  color: white;
+  margin: auto;
+}
+
+#topics {
+  background-color: #ba2032;
+  padding: 20px 10px;
+}
+
+#topics h3 {
+  background-color: #fff;
+  width: 80%;
+  margin: auto;
+}
+
+#topics li {
+  margin: 10px auto;
+}
+#topics a {
+  color: #fff;
+  font-size: 20px;
+}
+
+#topics a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.article-text {
+  width: 80%;
+  margin: auto;
+}
+
+hr {
+  width: 100px;
+  margin: 20px auto;
+}
+
+.scrollable {
+  overflow-y: scroll;
 }
 
 @media only screen and (max-width: 480px) {

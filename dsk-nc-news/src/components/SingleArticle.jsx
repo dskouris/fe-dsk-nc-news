@@ -3,37 +3,47 @@ import * as api from '../utils/api';
 import CommentsList from './CommentsList';
 import ErrorPage from './ErrorPage';
 import Voter from './Voter';
+import Loading from './Loading';
+import Topics from './Topics';
 
 class SingleArticle extends Component {
-  state = { article: {}, showComments: false, err: null };
+  state = { article: {}, showComments: false, err: null, isLoading: true };
 
   toggleComments = () => {
     this.setState(currentState => {
       return { ...currentState, showComments: !currentState.showComments };
     });
   };
+
   render() {
     return (
-      <>
-        <h1>{this.state.article.title}</h1>
-        {this.state.err ? (
-          <ErrorPage err={this.state.err} />
-        ) : (
-          <>
-            <Voter
-              article_id={this.props.article_id}
-              currentVotes={this.state.article.votes}
-            />
-            <p>{this.state.article.body}</p>
-            <button onClick={this.toggleComments}>
-              {this.state.showComments ? 'Hide comments' : 'Show comments'}
-            </button>
-            {this.state.showComments && (
-              <CommentsList article_id={this.props.article_id} />
-            )}
-          </>
-        )}
-      </>
+      <div className='articles-container'>
+        <Topics />
+        <div className='scrollable'>
+          <h1>{this.state.article.title}</h1>
+          {this.state.err ? (
+            <ErrorPage err={this.state.err} />
+          ) : this.state.isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <p className='article-text'>{this.state.article.body}</p>
+              <hr />
+              <Voter
+                article_id={this.props.article_id}
+                currentVotes={this.state.article.votes}
+              />
+              <hr />
+              <button onClick={this.toggleComments}>
+                {this.state.showComments ? 'Hide comments' : 'Show comments'}
+              </button>
+              {this.state.showComments && (
+                <CommentsList article_id={this.props.article_id} />
+              )}
+            </>
+          )}
+        </div>
+      </div>
     );
   }
   componentDidMount() {
@@ -41,7 +51,7 @@ class SingleArticle extends Component {
     api
       .getSingleArticle(article_id)
       .then(article => {
-        this.setState({ article, err: null });
+        this.setState({ article, err: null, isLoading: false });
       })
       .catch(err => {
         let errObj = {

@@ -7,7 +7,13 @@ const Header = () => {
     <>
       <header>
         <Link to='/'>
-          <h1>North Coders News </h1>
+          <img
+            src={require('../img/northcoderslogo.png')}
+            alt='northcoderslogo'
+          />
+        </Link>
+        <Link to='/'>
+          <h1>News </h1>
         </Link>
         <p>Logged in as: jessjelly</p>
       </header>

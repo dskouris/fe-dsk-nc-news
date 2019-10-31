@@ -26,8 +26,8 @@ class ArticlesList extends Component {
 
   render() {
     return (
-      <div id='articles-list'>
-        <h2>Articles</h2>
+      <div id='articles-list' className='scrollable'>
+        {/* <h2>Articles</h2> */}
         <p>
           Viewing articles about:{' '}
           {this.props.topic ? utils.capitalise(this.props.topic) : 'Everything'}

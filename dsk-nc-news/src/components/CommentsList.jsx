@@ -72,15 +72,13 @@ class CommentsList extends Component {
                 <form onSubmit={this.handleSubmit}>
                   <p>Username: jessjelly</p>
                   <p>
-                    <label>
-                      Comment:
-                      <textarea
-                        type='text'
-                        id='comment-body'
-                        onChange={this.handleChange}
-                        required
-                      />
-                    </label>
+                    <textarea
+                      type='text'
+                      id='comment-body'
+                      rows='10'
+                      onChange={this.handleChange}
+                      required
+                    />
                   </p>
                   <button type='submit' onClick={this.handleSubmit}>
                     Post comment
