@@ -143,9 +143,41 @@ hr {
 }
 
 @media only screen and (max-width: 480px) {
+  html,
+  body {
+    padding: 0px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  body {
+    position: relative;
+  }
+  header {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    height: 100vh;
+  }
+  header img {
+    margin: 0;
+  }
+  header a {
+    margin: 10px 5px;
+  }
+
   .articles-container {
     display: flex;
     flex-direction: column;
+    height: auto;
+  }
+  #topics {
+    height: auto;
+    padding: 0px;
+  }
+  .scrollable {
+    height: auto;
+    padding: 0px;
+    padding-bottom: 100px;
   }
 }
 
