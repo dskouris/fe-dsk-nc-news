@@ -1,4 +1,4 @@
-# fe-nc-news
+# NC News Front-end (fe-nc-news)
 
 Northcoders News is a social news aggregation, web content rating, and discussion website.
 
