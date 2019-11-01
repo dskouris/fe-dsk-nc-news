@@ -6,6 +6,24 @@ import ErrorPage from './ErrorPage';
 import Voter from './Voter';
 import Loading from './Loading';
 import Topics from './Topics';
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComments } from '@fortawesome/free-solid-svg-icons';
+
+const Button = styled.button`
+  cursor: pointer;
+  background: #fff;
+  color: #ba2032;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  outline: inherit;
+  padding: 5px;
+  transition: all 500ms ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
 
 class SingleArticle extends Component {
   state = { article: {}, showComments: false, err: null, isLoading: true };
@@ -37,9 +55,13 @@ class SingleArticle extends Component {
                 currentVotes={this.state.article.votes}
               />
               <hr />
-              <button onClick={this.toggleComments}>
-                {this.state.showComments ? 'Hide comments' : 'Show comments'}
-              </button>
+              <Button onClick={this.toggleComments}>
+                {this.state.showComments ? (
+                  <>Hide comments {<FontAwesomeIcon icon={faComments} />}</>
+                ) : (
+                  <>Show comments {<FontAwesomeIcon icon={faComments} />}</>
+                )}
+              </Button>
               {this.state.showComments && (
                 <CommentsList article_id={this.props.article_id} />
               )}

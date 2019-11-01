@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
 import * as api from '../utils/api';
+import styled from 'styled-components';
+
+const Button = styled.button`
+  cursor: pointer;
+  background-color: transparent;
+  color: #ba2032;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  outline: inherit;
+  padding: 5px;
+  margin: 5px;
+  transition: all 500ms ease;
+  &:hover {
+    transform: scale(1.3);
+  }
+`;
 
 class Voter extends Component {
   state = { additionalVotes: 0 };
@@ -40,23 +57,23 @@ class Voter extends Component {
     const { currentVotes } = this.props;
     let { additionalVotes } = this.state;
     return (
-      <>
-        <p>Votes: {currentVotes + additionalVotes}</p>
-        <button
+      <div id='vote-box'>
+        <Button
           onClick={this.vote}
           id='upvote'
           disabled={additionalVotes === 1 ? true : false}
         >
-          Upvote
-        </button>
-        <button
+          ▲
+        </Button>
+        <p>Votes: {currentVotes + additionalVotes}</p>
+        <Button
           onClick={this.vote}
           id='downvote'
           disabled={additionalVotes === -1 ? true : false}
         >
-          Downvote
-        </button>{' '}
-      </>
+          ▼
+        </Button>{' '}
+      </div>
     );
   }
 }

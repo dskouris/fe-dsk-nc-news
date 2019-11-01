@@ -2,6 +2,24 @@ import React, { Component } from 'react';
 import CommentCard from './CommentCard';
 import * as api from '../utils/api';
 import Popup from 'reactjs-popup';
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faComment } from '@fortawesome/free-solid-svg-icons';
+
+const Button = styled.button`
+  cursor: pointer;
+  background: #fff;
+  color: #ba2032;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  outline: inherit;
+  padding: 5px;
+  transition: all 500ms ease;
+  &:hover {
+    transform: scale(1.05);
+  }
+`;
 
 class CommentsList extends Component {
   state = {
@@ -11,6 +29,7 @@ class CommentsList extends Component {
   };
 
   handleSubmit = event => {
+    console.log(this.state.newComment);
     event.preventDefault();
     api
       .postComment(this.props.article_id, this.state.newComment)
@@ -58,7 +77,12 @@ class CommentsList extends Component {
       <>
         <h2>Comments</h2>
         <Popup
-          trigger={<button> Add comment</button>}
+          trigger={
+            <Button>
+              {' '}
+              Add comment <FontAwesomeIcon icon={faComment} />
+            </Button>
+          }
           onClose={this.handleCloseModal}
           position='right center'
           modal
@@ -80,9 +104,13 @@ class CommentsList extends Component {
                       required
                     />
                   </p>
-                  <button type='submit' onClick={this.handleSubmit}>
+                  <Button
+                    type='submit'
+                    disabled={this.state.newComment.body ? false : true}
+                    onClick={this.handleSubmit}
+                  >
                     Post comment
-                  </button>
+                  </Button>
                 </form>
               </>
             )}
