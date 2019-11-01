@@ -14,7 +14,7 @@ const Button = styled.button`
   padding: 5px;
   transition: all 500ms ease;
   &:hover {
-    transform: scale(1.05);
+    text-decoration: underline;
   }
 `;
 
