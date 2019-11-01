@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './components/Header';
-import Users from './components/Users';
 import Articles from './components/Articles';
 import SingleArticle from './components/SingleArticle';
 import ErrorPage from './components/ErrorPage';
@@ -17,7 +16,6 @@ function App() {
         <Articles path='/articles' />
         <Articles path='topics/:topic' />
         <SingleArticle path='/articles/:article_id' />
-        <Users path='/users' />
         <ErrorPage err={{ status: 404, msg: 'path not found' }} default />
       </Router>
     </div>
