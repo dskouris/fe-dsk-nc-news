@@ -1,8 +1,11 @@
 # fe-nc-news
 
 Northcoders News is a social news aggregation, web content rating, and discussion website.
+
 It allows you see a range of articles, filter them by topics and sort by the number of votes, comments and creation date, on the basis of being logged in as a default user.
+
 The site includes the ability to comment and vote on articles and comments. You can also delete your own comments if you choose.
+
 The site was completed using a combination of React JS for the front end and Node/Express with PostgreSQL for the back end server and is fully mobile responsive.
 
 To run locally:
