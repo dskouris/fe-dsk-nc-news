@@ -57,10 +57,12 @@ ul {
 }
 
 .article-card {
-  background-color: #ededed;
+  background-color: #fff;
   margin: 10px auto;
   width: 70%;
   padding: 20px;
+
+  border-bottom: 1px #bdb5b5 solid;
 }
 
 .article-card a {
@@ -75,7 +77,6 @@ ul {
   background-color: #fff;
   width: 70%;
   padding: 20px;
-  border-top: 1px #bdb5b5 solid;
   border-bottom: 1px #bdb5b5 solid;
 }
 
