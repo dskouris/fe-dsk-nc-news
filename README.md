@@ -12,7 +12,7 @@ To run locally:
 
 - Clone/download this repo
 - Change directory to /dsk-nc-news
-- NPM Install
+- NPM install
 - NPM start
 
 Links:
