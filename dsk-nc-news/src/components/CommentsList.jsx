@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CommentCard from './CommentCard';
+import Loading from './Loading';
 import * as api from '../utils/api';
 import Popup from 'reactjs-popup';
 import styled from 'styled-components';
@@ -25,7 +26,8 @@ class CommentsList extends Component {
   state = {
     newComment: {},
     postedComment: false,
-    comments: []
+    comments: [],
+    isLoading: true
   };
 
   handleSubmit = event => {
@@ -34,8 +36,6 @@ class CommentsList extends Component {
     api
       .postComment(this.props.article_id, this.state.newComment)
       .then(newComment => {
-        // console.log(newComment, 'comentslist');
-
         this.setState(currentState => {
           let updatedComments = [newComment, ...currentState.comments];
 
@@ -76,56 +76,62 @@ class CommentsList extends Component {
     return (
       <>
         <h2>Comments</h2>
-        <Popup
-          trigger={
-            <Button>
-              {' '}
-              Add comment <FontAwesomeIcon icon={faComment} />
-            </Button>
-          }
-          onClose={this.handleCloseModal}
-          position='right center'
-          modal
-        >
+        {this.state.isLoading ? (
+          <Loading />
+        ) : (
           <>
-            {this.state.postedComment ? (
-              <h2>Comment posted!</h2>
-            ) : (
+            <Popup
+              trigger={
+                <Button>
+                  {' '}
+                  Add comment <FontAwesomeIcon icon={faComment} />
+                </Button>
+              }
+              onClose={this.handleCloseModal}
+              position='right center'
+              modal
+            >
               <>
-                <h3>Add comment</h3>
-                <form onSubmit={this.handleSubmit}>
-                  <p>Username: jessjelly</p>
-                  <p>
-                    <textarea
-                      type='text'
-                      id='comment-body'
-                      rows='10'
-                      onChange={this.handleChange}
-                      required
-                    />
-                  </p>
-                  <Button
-                    type='submit'
-                    disabled={this.state.newComment.body ? false : true}
-                    onClick={this.handleSubmit}
-                  >
-                    Post comment
-                  </Button>
-                </form>
+                {this.state.postedComment ? (
+                  <h2>Comment posted!</h2>
+                ) : (
+                  <>
+                    <h3>Add comment</h3>
+                    <form onSubmit={this.handleSubmit}>
+                      <p>Username: jessjelly</p>
+                      <p>
+                        <textarea
+                          type='text'
+                          id='comment-body'
+                          rows='10'
+                          onChange={this.handleChange}
+                          required
+                        />
+                      </p>
+                      <Button
+                        type='submit'
+                        disabled={this.state.newComment.body ? false : true}
+                        onClick={this.handleSubmit}
+                      >
+                        Post comment
+                      </Button>
+                    </form>
+                  </>
+                )}
               </>
-            )}
-          </>
-        </Popup>
+            </Popup>
 
-        {this.state.comments.map(comment => {
-          return (
-            <CommentCard
-              comment={comment}
-              key={comment.comment_id}
-              handleDelete={this.handleDelete}
-            />
-          );
-        })}
+            {this.state.comments.map(comment => {
+              return (
+                <CommentCard
+                  comment={comment}
+                  key={comment.comment_id}
+                  handleDelete={this.handleDelete}
+                />
+              );
+            })}
+          </>
+        )}
       </>
     );
   }
@@ -134,7 +140,7 @@ class CommentsList extends Component {
     api
       .getComments(this.props.article_id)
       .then(comments => {
-        this.setState({ comments });
+        this.setState({ comments, isLoading: false });
       })
       .catch(console.log);
   }

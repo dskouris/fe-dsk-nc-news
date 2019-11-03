@@ -33,37 +33,39 @@ class ArticlesList extends Component {
           <ErrorPage err={this.state.err} />
         ) : (
           <>
-            <p>
-              Viewing articles about:{' '}
-              {this.props.topic
-                ? utils.capitalise(this.props.topic)
-                : 'Everything'}
-            </p>
-            <label>
-              Sort by:
-              <select
-                onChange={this.handleChange}
-                defaultValue='created_at-desc'
-                id='select-sort'
-              >
-                <option value='created_at-desc'>Newest</option>
-                <option value='created_at-asc'>Oldest</option>
-                <option value='comment_count-desc'>Most comments</option>
-                <option value='comment_count-asc'>Least comments</option>
-                <option value='votes-desc'>Most votes</option>
-                <option value='votes-asc'>Least votes</option>
-              </select>
-            </label>
             {this.state.isLoading ? (
               <Loading />
             ) : (
-              <ul>
-                {this.state.articles.map(article => {
-                  return (
-                    <ArticleCard article={article} key={article.article_id} />
-                  );
-                })}
-              </ul>
+              <>
+                <p>
+                  Viewing articles about:{' '}
+                  {this.props.topic
+                    ? utils.capitalise(this.props.topic)
+                    : 'Everything'}
+                </p>
+                <label>
+                  Sort by:
+                  <select
+                    onChange={this.handleChange}
+                    defaultValue='created_at-desc'
+                    id='select-sort'
+                  >
+                    <option value='created_at-desc'>Newest</option>
+                    <option value='created_at-asc'>Oldest</option>
+                    <option value='comment_count-desc'>Most comments</option>
+                    <option value='comment_count-asc'>Least comments</option>
+                    <option value='votes-desc'>Most votes</option>
+                    <option value='votes-asc'>Least votes</option>
+                  </select>
+                </label>
+                <ul>
+                  {this.state.articles.map(article => {
+                    return (
+                      <ArticleCard article={article} key={article.article_id} />
+                    );
+                  })}
+                </ul>
+              </>
             )}
           </>
         )}
