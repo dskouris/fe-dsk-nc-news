@@ -21,4 +21,4 @@ View the project hosted on Netlify: https://dsk-nc-news.netlify.com
 
 View the back end repository: https://github.com/dskouris/be-dsk-nc-news
 
-View the hosted back end on Heroku: https://nc-news-dsk.herokuapp.com/api/
+View the hosted back end on Heroku: https://be-dsk-nc-news.herokuapp.com/api
